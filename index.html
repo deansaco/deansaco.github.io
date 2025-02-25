@@ -4,107 +4,747 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean Sacoransky</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --section-padding: 4rem 2rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            max-width: 800px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        h1 {
-            color: #333;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .photo-placeholder {
-            width: 200px;
-            height: 200px;
-            background-color: #ddd;
-            margin: 20px auto;
+
+        .navbar-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-color);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-style: italic;
-            color: #666;
+            text-align: center;
+            padding: 0 2rem;
+            background-color: var(--light-color);
+            position: relative;
+            overflow: hidden;
         }
-        .photo {
-            width: 150px;
-            height: 150px;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(231, 76, 60, 0.1) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
             object-fit: cover;
+            object-position: center 20%;
             border-radius: 50%;
-            margin: 20px auto;
-            display: block;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: var(--section-padding);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+        }
+
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+
+        /* Experience Sections */
+        .experience {
+            background-color: #f9f9f9;
+        }
+
+        .experience-item {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .experience-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .experience-title {
+            margin: 0;
+            flex-shrink: 0;
+            margin-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .company-logos {
+            display: flex;
+            align-items: center;
+        }
+
+        .company-logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: white;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                top: 70px;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .company-logos {
+                margin-top: 1rem;
+            }
+        }
+
+        /* PDF Embed */
+        .pdf-container {
+            width: 100%;
+            height: 600px;
+            margin-top: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-item {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Link Cards Styling */
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .link-card {
+            display: flex;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 16px;
+            color: #495057;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-content h4 {
+            margin: 0 0 8px 0;
+            color: #212529;
+            font-size: 1.1rem;
+        }
+
+        .card-content p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="imgs/headshot.jpg" alt="Dean Sacoransky" class="photo">
-        <h1>Dean Sacoransky</h1>
-    </header>
-
-    <main>
-        <section class="section">
-            <h2>About Me</h2>
-            <p> Hi, my name is Dean. I love playing Catan and sports (especially hockey & baseball). I am inspired by challenges, and want to work on something intellectually rewarding and impactful. I want to tap into my fullest potential, and I am looking for world-class people to do my life's work with. I value trust, honesty, and communication above all in personal and professional relationships. I am technologically curious and committed to continual learning.
-            </p>
-        </section>
-        <section class="section">
-            <div style="display: flex; align-items: center;">
-                <h2 style="margin: 0; flex-shrink: 0;">AI Engineer</h2>
-                <div style="display: flex; align-items: center; margin-left: 20px;">
-                    <img src="imgs/IBM.png" alt="IBM Logo" style="width: auto; height: 50px; object-fit: contain; margin-right: 10px;">
-                    <img src="imgs/watsonx.png" alt="watsonx Logo" style="width: auto; height: 50px; object-fit: contain;">
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <div class="logo">
+                <!-- Removing "DS" text -->
             </div>
-            <p>Client-facing AI Engineer at IBM with experience building generative
-                AI solutions (RAG, LLM, Agents) for large enterprise clients across various sectors (financial services, government, healthcare, construction, legal, defense).  
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#ai-engineer">AI Engineer</a></li>
+                <li><a href="#robotics">Robotics</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="imgs/headshot.jpg" alt="Dean Sacoransky" class="profile-img">
+            <h1>Dean Sacoransky</h1>
+            <p class="hero-text">AI Engineer & Robotics Researcher.</p>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/dean-sacoransky-6a671119a/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:deansaco@rogers.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://medium.com/@deansaco" target="_blank"><i class="fab fa-medium-m"></i></a>
+                <a href="https://github.com/deansaco" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <p>Hi, my name is Dean. I love playing Catan and sports (especially hockey & baseball). I am inspired by challenges, and want to work on something intellectually rewarding and impactful. I want to tap into my fullest potential, and I am looking for world-class people to do my life's work with. I value trust, honesty, and communication above all in personal and professional relationships. I am technologically curious and committed to continual learning.</p>
+        </div>
+    </section>
+
+    <!-- AI Engineer Section -->
+    <section class="experience" id="ai-engineer">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Engineer</h2>
+            </div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="company-logos">
+                        <img src="imgs/IBM.png" alt="IBM Logo" class="company-logo">
+                        <img src="imgs/watsonx.png" alt="watsonx Logo" class="company-logo">
+                    </div>
+                </div>
+                <p>Client-facing AI Engineer at IBM with experience building generative AI solutions (RAG, LLM, Agents) for large enterprise clients across various sectors (financial services, government, healthcare, construction, legal, defense).</p>
+                <p>My interests span scientific and systems-level advancements in AI. Currently, I am most interested in the following topics: information retrieval, LLM agents, optimizing and evaluating RAG, and embedding models/improving semantic search.</p>
                 
-                My interests span scientific and systems-level advancements in AI. Currently, I am most interested in the following topics: information retrieval, LLM agents, optimizing and evaluating RAG, and embedding models.
-            </p>
-            <h3> Technical Writing - Generative AI, LLMs, RAG, Agents</h3>
-            <ul>
-                <li><a href="https://www.ibm.com/architectures/papers/rag-cookbook" target="_blank">The IBM RAG Cookbook</a></li>
-                <li><a href="https://www.youtube.com/watch?v=DG-I2iMHHLo" target="_blank">Youtube Video: Introducing the IBM RAG Cookbook</a></li>
-                <li><a href="https://medium.com/@deansaco" target="_blank">My AI Blog on Medium</a></li>
-                <li><a href="https://developer.ibm.com/tutorials/awb-build-rag-llm-agents/" target="_blank">Tutorial: Building RAG LLM Agents with IBM</a></li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <div style="display: flex; align-items: center;">
-                <h2 style="margin: 0; flex-shrink: 0;">Robotics Researcher</h2>
-                <div style="display: flex; align-items: center; margin-left: 20px;">
-                    <img src="imgs/labs.jpg" alt="Ingenuity Labs Logo" style="width: auto; height: 50px; object-fit: contain; margin-right: 10px;">
-                    <img src="imgs/QU.png" alt="Queen's University Logo" style="width: auto; height: 50px; object-fit: contain;">
+                <h3>Tech Stack 🛠️</h3>
+                <div class="tech-stack">
+                    <a href="https://www.langchain.com/" target="_blank" title="LangChain"><span class="tech-item">⛓️ LangChain</span></a>
+                    <a href="https://github.com/langchain-ai/langgraph" target="_blank" title="LangGraph"><span class="tech-item">🔄 LangGraph</span></a>
+                    <a href="https://www.llamaindex.ai/" target="_blank" title="LlamaIndex"><span class="tech-item">🦙 LlamaIndex</span></a>
+                    <a href="https://www.elastic.co/" target="_blank" title="Elastic Search"><span class="tech-item">🔍 Elastic</span></a>
+                    <a href="https://huggingface.co/" target="_blank" title="HuggingFace"><span class="tech-item">🤗 HuggingFace</span></a>
+                    <a href="https://www.ibm.com/watsonx" target="_blank" title="IBM watsonx"><span class="tech-item">🧠 watsonx</span></a>
+                </div>
+                
+                <h3>Projects</h3>
+                <div class="link-cards">
+                    <a href="https://www.ibm.com/architectures/papers/rag-cookbook" target="_blank" class="link-card">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h4>IBM RAG Cookbook</h4>
+                            <p>A compendium of tips, tricks, and techniques for implementing and optimizing Retrieval Augmented Generation (RAG) solutions</p>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=DG-I2iMHHLo" target="_blank" class="link-card">
+                        <div class="card-icon">🎥</div>
+                        <div class="card-content">
+                            <h4>RAG Cookbook Video</h4>
+                            <p>Video presentation on the IBM RAG Cookbook and implementation techniques</p>
+                        </div>
+                    </a>
+                    <a href="https://medium.com/@deansaco" target="_blank" class="link-card">
+                        <div class="card-icon">✍️</div>
+                        <div class="card-content">
+                            <h4>Medium Blog</h4>
+                            <p>Technical articles and insights on AI, machine learning, and software development</p>
+                        </div>
+                    </a>
+                    <a href="https://developer.ibm.com/tutorials/awb-build-rag-llm-agents/" target="_blank" class="link-card">
+                        <div class="card-icon">🤖</div>
+                        <div class="card-content">
+                            <h4>Building RAG LLM Agents</h4>
+                            <p>IBM Developer tutorial on building retrieval-augmented generation agents with large language models</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <p>I researched autonomous vehicle systems using automotive radar as the main sensing modality. Completed and defended my Master's thesis in only one year (half the expected time), with no prior experience in robotics, sensors, or perception algorithms. In this short time frame, I completed a first-author publication at the top ranked robotics conference globally (ICRA 2023, London UK). Here is a collection of content I produced during my time as a researcher: </p>
-            <h3>Video Presentations</h3>
-            <ul>
-                <li><a href="https://www.youtube.com/watch?v=Im3AQMAHfR0" target="_blank">Short Video Presentation: IEEE International Conference on Robotics and Automation 2023</a></li>
-                <li><a href="https://www.youtube.com/watch?v=2Vhw3ZHV32k" target="_blank">Podcast: AI in Autonomous Vehicles</a></li>
-            </ul>
-            <h3>Publications</h3>
-            <ul>
-                <li><a href="https://qspace.library.queensu.ca/items/dc30e61c-09e6-42e4-8db2-b8d8defd40e0" target="_blank">Preprint: Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</a></li>
-                <li><a href="https://ieeexplore.ieee.org/document/10161274" target="_blank">IEEE Publication: Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</a></li>
-                <li><a href="https://qspace.library.queensu.ca/items/f5725262-4dd0-4992-a00d-ce5b683dc001" target="_blank">Master's Thesis: Autonomous Vehicle Localization Using Automotive Radar and Reflective Lane Markers
-                </a></li>
-            </ul>
-            <h3>Research Poster</h3>
-            <embed src="imgs/poster.pdf" type="application/pdf" width="100%" height="600px" />
-        </section>
+        </div>
+    </section>
 
-        <section class="section">
-            <h2>Contact</h2>
-            <p>Email: deansaco@rogers.com</p>
-            <p><a href="https://www.linkedin.com/in/dean-sacoransky-6a671119a/">LinkedIn Profile</a></p>
-        </section>
-    </main>
+    <!-- Robotics Researcher Section -->
+    <section class="experience" id="robotics">
+        <div class="container">
+            <div class="section-title">
+                <h2>Robotics Researcher</h2>
+            </div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="company-logos">
+                        <img src="imgs/labs.jpg" alt="Ingenuity Labs Logo" class="company-logo">
+                        <img src="imgs/QU.png" alt="Queen's University Logo" class="company-logo">
+                    </div>
+                </div>
+                <p>Focussed on localization for autonomous vehicles using automotive radar as the main sensing modality. Completed and defended my Master's thesis in only one year (half the expected time), with no prior experience in robotics, sensors, or perception algorithms. In this short time frame, I completed a first-author publication at the top ranked robotics conference globally (ICRA 2023, London UK). Here is a collection of content I produced during my time as a researcher:</p>
+                
+                <h3>Tech Stack 🛠️</h3>
+                <div class="tech-stack">
+                    <a href="https://www.ros.org/" target="_blank" title="Robot Operating System"><span class="tech-item">🤖 ROS</span></a>
+                    <a href="https://clearpathrobotics.com/husky-unmanned-ground-vehicle-robot/" target="_blank" title="Clearpath Husky"><span class="tech-item">🚙 Clearpath Husky</span></a>
+                    <a href="https://conti-engineering.com/components/ars-408/" target="_blank" title="Continental ARS408 Radar"><span class="tech-item">📡 ARS408 Radar</span></a>
+                    <a href="https://scikit-learn.org/stable/modules/clustering.html#dbscan" target="_blank" title="DBSCAN Clustering"><span class="tech-item">📊 DBSCAN</span></a>
+                    <a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" title="Kalman Filter"><span class="tech-item">🔍 Kalman Filter</span></a>
+                </div>
+                
+                <h3>GitHub Repository</h3>
+                <div class="link-cards">
+                    <a href="https://github.com/offroad-robotics/radar-localization" target="_blank" class="link-card">
+                        <div class="card-icon">💻</div>
+                        <div class="card-content">
+                            <h4>Radar Localization Code Repository</h4>
+                            <p>Source code for interfacing with the ARS408 radar, DBSCAN clustering, Kalman filtering, and autonomous control</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <h3>Video Presentations</h3>
+                <div class="link-cards">
+                    <a href="https://www.youtube.com/watch?v=Im3AQMAHfR0" target="_blank" class="link-card">
+                        <div class="card-icon">🎥</div>
+                        <div class="card-content">
+                            <h4>ICRA 2023 Presentation</h4>
+                            <p>Short video presentation at IEEE International Conference on Robotics and Automation 2023</p>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=2Vhw3ZHV32k" target="_blank" class="link-card">
+                        <div class="card-icon">🎙️</div>
+                        <div class="card-content">
+                            <h4>AI in Autonomous Vehicles</h4>
+                            <p>Podcast discussion on artificial intelligence applications in autonomous vehicles</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <h3>Publications</h3>
+                <div class="link-cards">
+                    <a href="https://qspace.library.queensu.ca/items/dc30e61c-09e6-42e4-8db2-b8d8defd40e0" target="_blank" class="link-card">
+                        <div class="card-icon">📄</div>
+                        <div class="card-content">
+                            <h4>Preprint</h4>
+                            <p>Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</p>
+                        </div>
+                    </a>
+                    <a href="https://ieeexplore.ieee.org/document/10161274" target="_blank" class="link-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-content">
+                            <h4>IEEE Publication</h4>
+                            <p>Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</p>
+                        </div>
+                    </a>
+                    <a href="https://qspace.library.queensu.ca/items/f5725262-4dd0-4992-a00d-ce5b683dc001" target="_blank" class="link-card">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h4>Master's Thesis</h4>
+                            <p>Autonomous Vehicle Localization Using Automotive Radar and Reflective Lane Markers</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <h3>Research Poster</h3>
+                <div class="pdf-container">
+                    <embed src="imgs/poster.pdf" type="application/pdf" width="100%" height="100%" />
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact</h2>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <p>deansaco@rogers.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <p><a href="https://www.linkedin.com/in/dean-sacoransky-6a671119a/" target="_blank">LinkedIn Profile</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Dean Sacoransky. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
