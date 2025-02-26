@@ -450,6 +450,7 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin: 20px 0;
+            position: relative;
         }
 
         .link-card {
@@ -491,6 +492,36 @@
             margin: 0;
             color: #6c757d;
             font-size: 0.9rem;
+        }
+
+        .featured-badge {
+            margin-top: -15px;
+            margin-bottom: 15px;
+            margin-left: 60px;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .featured-badge a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f0f7ff;
+            color: #0062ff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            border: 1px solid #d0e2ff;
+        }
+        
+        .featured-badge a:hover {
+            background-color: #d0e2ff;
+            color: #0043ce;
+        }
+        
+        .featured-badge i {
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -572,29 +603,34 @@
                         <div class="card-icon">📚</div>
                         <div class="card-content">
                             <h4>IBM RAG Cookbook</h4>
-                            <p>A compendium of tips, tricks, and techniques for implementing and optimizing Retrieval Augmented Generation (RAG) solutions</p>
+                            <p>A compendium of tips, tricks, and techniques for implementing and optimizing Retrieval Augmented Generation (RAG) solutions for large enterprise clients</p>
                         </div>
                     </a>
                     <a href="https://www.youtube.com/watch?v=DG-I2iMHHLo" target="_blank" class="link-card">
                         <div class="card-icon">🎥</div>
                         <div class="card-content">
                             <h4>RAG Cookbook Video</h4>
-                            <p>Video presentation on the IBM RAG Cookbook and implementation techniques</p>
+                            <p>Video presentation on the IBM RAG Cookbook</p>
                         </div>
                     </a>
                     <a href="https://medium.com/@deansaco" target="_blank" class="link-card">
                         <div class="card-icon">✍️</div>
                         <div class="card-content">
                             <h4>Medium Blog</h4>
-                            <p>Technical articles and insights on AI, machine learning, and software development</p>
+                            <p>Technical articles and insights on RAG, LLMs, Agents,and more</p>
                         </div>
                     </a>
                     <a href="https://developer.ibm.com/tutorials/awb-build-rag-llm-agents/" target="_blank" class="link-card">
                         <div class="card-icon">🤖</div>
                         <div class="card-content">
                             <h4>Building RAG LLM Agents</h4>
-                            <p>IBM Developer tutorial on building retrieval-augmented generation agents with large language models</p>
+                            <p>IBM Developer tutorial on building Agentic RAG with watsonx, LangGraph, Elasticsearch, and Tavily. Featured as the main reference example for LangGraph integration on IBM's watsonx Developer Hub.</p>
                         </div>
+                    </a>
+                </div>
+                <div class="featured-badge">
+                    <a href="https://www.ibm.com/watsonx/developer/get-started/libraries#langgraph" target="_blank" title="View on watsonx Developer Hub">
+                        <i class="fas fa-external-link-alt"></i> Featured on watsonx Developer Hub
                     </a>
                 </div>
             </div>
@@ -631,7 +667,7 @@
                         <div class="card-icon">💻</div>
                         <div class="card-content">
                             <h4>Radar Localization Code Repository</h4>
-                            <p>Source code for interfacing with the ARS408 radar, DBSCAN clustering, Kalman filtering, and autonomous control</p>
+                            <p>Source code for interfacing with the ARS408 radar Husky Robot, localization algorithm (DBSCAN clustering, Kalman filtering, GNN data association), and autonomous robot control</p>
                         </div>
                     </a>
                 </div>
@@ -659,14 +695,14 @@
                     <a href="https://qspace.library.queensu.ca/items/dc30e61c-09e6-42e4-8db2-b8d8defd40e0" target="_blank" class="link-card">
                         <div class="card-icon">📄</div>
                         <div class="card-content">
-                            <h4>Preprint</h4>
+                            <h4>Preprint, ICRA 2023</h4>
                             <p>Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</p>
                         </div>
                     </a>
                     <a href="https://ieeexplore.ieee.org/document/10161274" target="_blank" class="link-card">
                         <div class="card-icon">📊</div>
                         <div class="card-content">
-                            <h4>IEEE Publication</h4>
+                            <h4>IEEE Publication, ICRA 2023</h4>
                             <p>Towards unsupervised filtering of millimetre-wave radar returns for autonomous vehicle road following</p>
                         </div>
                     </a>
@@ -679,7 +715,7 @@
                     </a>
                 </div>
                 
-                <h3>Research Poster</h3>
+                <h3>Research Poster, ICRA 2023</h3>
                 <div class="pdf-container">
                     <embed src="imgs/poster.pdf" type="application/pdf" width="100%" height="100%" />
                 </div>
