@@ -1,0 +1,9 @@
+Flask
+Flask-CORS
+openai
+python-dotenv
+numpy
+scikit-learn
+requests
+beautifulsoup4
+urllib3
